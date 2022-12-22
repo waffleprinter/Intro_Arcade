@@ -1,0 +1,59 @@
+"""
+Jacques-Conrad Calagui-Painchaud, 405
+Intro Arcade - exercice 2
+Programme qui ouvre un window arcade et fait apparaite 20 cercle de couleurs aléatoire dont on peut cliquer dessus pour
+les faire disparaitre.
+"""
+
+import arcade
+import random
+from math import sqrt
+
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
+COLORS = [arcade.color.RED, arcade.color.BLUE, arcade.color.GREEN]
+circle_list = []
+
+
+class Circle:
+    show = True
+
+    def __init__(self):
+        self.radius = 10
+        self.x_coordinate = random.randint(self.radius, SCREEN_WIDTH - self.radius)
+        self.y_coordinate = random.randint(self.radius, SCREEN_HEIGHT - self.radius)
+        self.color = random.choice(COLORS)
+
+    def is_pressed(self, x, y):
+        distance_x = abs(self.x_coordinate - x)
+        distance_y = abs(self.y_coordinate - y)
+        return self.radius >= sqrt(distance_x**2 + distance_y**2)
+
+
+class MyGame(arcade.Window):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
+
+    def on_draw(self):
+        arcade.start_render()
+
+        for circle in circle_list:
+            if circle.show:
+                arcade.draw_circle_filled(circle.x_coordinate, circle.y_coordinate, circle.radius, circle.color)
+
+    def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
+        for circle in circle_list:
+            if circle.is_pressed(x, y):
+                circle.show = False
+
+
+def main():
+    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, "Arcade Exercise 2")
+    window.run()
+
+
+for i in range(20):
+    circle_list.append(Circle())
+
+
+main()
