@@ -1,0 +1,30 @@
+"""
+Jacques-Conrad Calagui-Painchaud, 405
+Intro Arcade - exercice 1
+Programme qui ouvre un window arcade et fait apparaite 20 cercle de couleurs aléatoire.
+"""
+
+import arcade
+import random
+
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
+COLORS = [arcade.color.RED, arcade.color.BLUE, arcade.color.GREEN]
+
+
+def main():
+    arcade.open_window(SCREEN_WIDTH, SCREEN_HEIGHT, "Arcade Exercise 1")
+
+    arcade.start_render()
+
+    for i in range(20):
+        random_x_coordinate = random.randint(0, SCREEN_WIDTH)
+        random_y_coordinate = random.randint(0, SCREEN_HEIGHT)
+        random_color = random.choice(COLORS)
+        arcade.draw_circle_filled(random_x_coordinate, random_y_coordinate, 10, random_color)
+
+    arcade.finish_render()
+    arcade.run()
+
+
+main()
