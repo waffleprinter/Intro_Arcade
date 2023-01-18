@@ -1,0 +1,33 @@
+import arcade
+
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
+
+
+class MyGame(arcade.Window):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
+
+    def on_draw(self):
+        arcade.start_render()
+
+        for rectangle_x in [220, 270, 370, 420]:  # PELLETS
+            arcade.draw_rectangle_filled(rectangle_x, SCREEN_HEIGHT / 2, 10, 10, arcade.color.PEACH, 0)
+
+        arcade.draw_circle_filled(320, SCREEN_HEIGHT / 2, 15, arcade.color.PEACH)  # POWER UP
+
+        arcade.draw_arc_filled(160, SCREEN_HEIGHT / 2, 60, 60, arcade.color.YELLOW, 0, 300, 30)  # PACMAN
+
+        arcade.draw_ellipse_filled(480, SCREEN_HEIGHT / 2, 50, 60, arcade.color.ORANGE)
+
+
+
+
+
+
+def main():
+    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT, "Arcade TP5")
+    window.run()
+
+
+main()
